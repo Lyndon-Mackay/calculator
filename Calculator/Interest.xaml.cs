@@ -32,6 +32,8 @@ namespace Calculator
         const decimal MEDIUM_ANNUAL_INTEREST_RATE = .476158m;
         const decimal MAXIMUM_LOAN = 5000.0m;
         const int INSERT_ERROR_INDEX = 2;
+        const string ERROR_LABEL_NAME = "ErrorLabel";
+        const string REPAYMENT_LABEL_NAME = "RepaymentLabel";
         public Interest()
         {
             InitializeComponent();
@@ -45,7 +47,7 @@ namespace Calculator
             {
                 string errorString = String.Format("The minimum loan amount allowed is ${0}", MINIMUM_LOAN);
 
-                SetDynamicLabel("ErrorLabel",errorString);
+                SetDynamicLabel(ERROR_LABEL_NAME,errorString);
 
             }
             else if (loanAmount < MEDIUM_LOAN)
@@ -55,7 +57,7 @@ namespace Calculator
                 decimal monthlyLoanAmount = loanAmount * SMALL_LOAN_MONTHLY_FEE;
 
                 string repaymentString = String.Format("Your monthly loan fee is ${0}", monthlyLoanAmount);
-                SetDynamicLabel("RepaymentLabel", repaymentString);
+                SetDynamicLabel(REPAYMENT_LABEL_NAME, repaymentString);
             }
             else if (loanAmount <= MAXIMUM_LOAN)
             {
@@ -64,12 +66,12 @@ namespace Calculator
                 decimal yearlyLoanAmount = loanAmount * MEDIUM_ANNUAL_INTEREST_RATE;
 
                 string repaymentString = String.Format("Your yearly Interest charge is ${0}", yearlyLoanAmount);
-                SetDynamicLabel("RepaymentLabel", repaymentString);
+                SetDynamicLabel(REPAYMENT_LABEL_NAME, repaymentString);
             }
             else
             {
                 string errorString = String.Format("The maximum loan amount allowed is ${0}", MAXIMUM_LOAN);
-                SetDynamicLabel("ErrorLabel",errorString);
+                SetDynamicLabel(ERROR_LABEL_NAME, errorString);
             }
         }
         /// <summary>
