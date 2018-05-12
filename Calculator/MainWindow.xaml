@@ -1,4 +1,4 @@
-﻿<Window x:Class="Calculator.MainWindow"
+﻿<Page x:Class="Calculator.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -58,4 +58,4 @@
         <Button x:Name="BtnClearAll"  Grid.Row="2" Grid.Column="3" Click="BtnClearAll_Click">C</Button>
         <Button  x:Name="BtnBackSpace"  Grid.Row="2" Grid.Column="4" Click="BtnBackSpace_Click">backspace</Button>
     </Grid>
-</Window>
+</Page>

@@ -20,7 +20,7 @@ namespace Calculator
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Page
     {
         /*When displaying results the next input should overwrite 
          * This keeps the state
