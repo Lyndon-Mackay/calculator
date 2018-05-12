@@ -14,13 +14,16 @@ namespace Calculator.VoiceFiles
       new SpeechRecognitionEngine(
         new System.Globalization.CultureInfo("en-NZ"));
         bool _listening = false;
-
+        //maximum number voice recognition would accept
+        const int MAX_NUMBER = 1000;
         public Voice(EventHandler<SpeechRecognizedEventArgs> result)
         {
-            Choices numbers = new Choices(new string[] { "0","1", "2", "4", "5", "8", "9" });
+            //make a count of all numbers between 0 and MAX_NUMBER
+            string[] testNumbers = Enumerable.Range(0, MAX_NUMBER).Select(x => x.ToString()).ToArray();
+            Choices numbers = new Choices(testNumbers);
             _recognizer.LoadGrammar(CreateGrammer(numbers));
 
-
+            ///
             Choices Operators = new Choices(new string[] { "+", "-","*","/" ,"%","=" });
             _recognizer.LoadGrammar(CreateGrammer(Operators));
 
