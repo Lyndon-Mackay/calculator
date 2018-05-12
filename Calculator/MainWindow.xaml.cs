@@ -53,23 +53,10 @@ namespace Calculator
         private void BtnEquals_Click(object sender, RoutedEventArgs e)
         {
             Button b = sender as Button;
-            string evaluatedText = txtDisplay.Text;
-
-            //have to use fullnamespace as it conflicts with another windows defined expression:(
-            org.mariuszgromada.math.mxparser.Expression expression = new org.mariuszgromada.math.mxparser.Expression(evaluatedText);
-            double result = expression.calculate();
-
-            OverWriteDisplay = true;
-
-            if (Double.IsNaN(result))
+            string evaluatedText = textManger.EvaluateResult();
+            if (evaluatedText.Length > 0)
             {
-                txtDisplay.Text = "Error";
-            }
-            else
-            {
-                txtDisplay.Text = result.ToString();
                 HistoryText.Items.Add(evaluatedText);
-                
             }
         }
 

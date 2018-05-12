@@ -47,7 +47,28 @@ namespace Calculator.Managers
         {
             _display.Text = "";
         }
+        public String EvaluateResult()
+        {
+            string evaluatedText = _display.Text;
 
+            //have to use fullnamespace as it conflicts with another windows defined expression:(
+            org.mariuszgromada.math.mxparser.Expression expression = new org.mariuszgromada.math.mxparser.Expression(evaluatedText);
+            double result = expression.calculate();
+
+            _OverWrite = true;
+
+            if (Double.IsNaN(result))
+            {
+                _display.Text = "Error";
+            }
+            else
+            {
+                _display.Text = result.ToString();
+                return result.ToString(); ;
+
+            }
+            return "";
+        }
 
     }
 }
