@@ -5,8 +5,55 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Calculator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Calculator" Height="550" Width="900">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <!--TextBox-->
+        <Label Grid.Column ="0" Grid.Row="1" VerticalAlignment="Bottom">History</Label>
+        <TextBox x:Name="txtDisplay" IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="30"
+                 Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="4" BorderThickness="0"></TextBox>
+        <ListBox x:Name="HistoryText" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="5" MouseDoubleClick="HistoryText_MouseDoubleClick" ></ListBox>
+        <!--Buttons-->
+        <Button x:Name="Btn7" Grid.Row="3" Grid.Column="2" Click="BtnNumberAndOperationClick">7</Button>
+        <Button x:Name="Btn8"  Grid.Row="3" Grid.Column="3" Click="BtnNumberAndOperationClick">8</Button>
+        <Button x:Name="Btn9"  Grid.Row="3" Grid.Column="4" Click="BtnNumberAndOperationClick">9</Button>
+
+        <Button x:Name="Btn4"  Grid.Row="4" Grid.Column="2" Click="BtnNumberAndOperationClick">4</Button>
+        <Button x:Name="Btn5"  Grid.Row="4" Grid.Column="3" Click="BtnNumberAndOperationClick">5</Button>
+        <Button x:Name="Btn6"  Grid.Row="4" Grid.Column="4" Click="BtnNumberAndOperationClick">6</Button>
+
+        <Button x:Name="Btn1"  Grid.Row="5" Grid.Column="2" Click="BtnNumberAndOperationClick">1</Button>
+        <Button x:Name="Btn2"  Grid.Row="5" Grid.Column="3" Click="BtnNumberAndOperationClick">2</Button>
+        <Button x:Name="Btn3"  Grid.Row="5" Grid.Column="4" Click="BtnNumberAndOperationClick">3</Button>
+
+        <Button x:Name="Btn0"  Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="2" Click="BtnNumberAndOperationClick">0</Button>
         
+        <!--Maths buttons-->
+        <Button x:Name="Btndivide"  Grid.Row="3" Grid.Column="5" Click="BtnNumberAndOperationClick">/</Button>
+        <Button x:Name="BtnTimes"  Grid.Row="4" Grid.Column="5" Click="BtnNumberAndOperationClick">*</Button>
+        <Button x:Name="BtnMinus"  Grid.Row="5" Grid.Column="5" Click="BtnNumberAndOperationClick">-</Button>
+        <Button x:Name="BtnEquals"   Grid.Row="6" Grid.Column="5" Click="BtnEquals_Click">=</Button>
+        <Button x:Name="BtnDecPoint" Grid.Row="6" Grid.Column="2" Click="BtnNumberAndOperationClick" >.</Button>
+        <Button  x:Name="BtnPercent"  Grid.Row="2" Grid.Column="6" Click="BtnNumberAndOperationClick">%</Button>
+        <!--Clear buttons-->
+        <Button x:Name="BtnClearEntry"  Grid.Row="2" Grid.Column="2" Click="BtnClearEntry_Click">CE</Button>
+        <Button x:Name="BtnClearAll"  Grid.Row="2" Grid.Column="3" Click="BtnClearAll_Click">C</Button>
+        <Button  x:Name="BtnBackSpace"  Grid.Row="2" Grid.Column="4" Click="BtnBackSpace_Click">backspace</Button>
     </Grid>
 </Window>
