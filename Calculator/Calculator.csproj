@@ -61,9 +61,16 @@
     <Compile Include="Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Interest.xaml.cs">
+      <DependentUpon>Interest.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Managers\TextBoxManager.cs" />
     <Compile Include="VoiceFiles\Voice.cs" />
     <Page Include="Home.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Interest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -96,5 +96,11 @@ namespace Calculator
         {
             textManger.WriteToTextBox( e.Result.Text);
         }
+
+        private void BtnInterest_Click(object sender, RoutedEventArgs e)
+        {
+            Interest interest = new Interest();
+            this.NavigationService.Navigate(interest);
+        }
     }
 }

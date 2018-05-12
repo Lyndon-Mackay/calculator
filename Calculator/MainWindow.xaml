@@ -45,7 +45,7 @@
         <Button x:Name="Btn3"  Grid.Row="5" Grid.Column="4" Click="BtnNumberAndOperationClick">3</Button>
 
         <Button x:Name="Btn0"  Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="2" Click="BtnNumberAndOperationClick">0</Button>
-        
+
         <!--Maths buttons-->
         <Button x:Name="Btndivide"  Grid.Row="3" Grid.Column="5" Click="BtnNumberAndOperationClick">/</Button>
         <Button x:Name="BtnTimes"  Grid.Row="4" Grid.Column="5" Click="BtnNumberAndOperationClick">*</Button>
@@ -57,5 +57,8 @@
         <Button x:Name="BtnClearEntry"  Grid.Row="2" Grid.Column="2" Click="BtnClearEntry_Click">CE</Button>
         <Button x:Name="BtnClearAll"  Grid.Row="2" Grid.Column="3" Click="BtnClearAll_Click">C</Button>
         <Button  x:Name="BtnBackSpace"  Grid.Row="2" Grid.Column="4" Click="BtnBackSpace_Click">backspace</Button>
+        
+        <!--InterestButton-->
+        <Button x:Name="BtnInterest" Grid.Row="0" Grid.Column="1" Click="BtnInterest_Click">Interest Calculator</Button>
     </Grid>
 </Page>
