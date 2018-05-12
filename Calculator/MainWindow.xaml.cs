@@ -52,10 +52,13 @@ namespace Calculator
         /// <param name="e">Boilerplate state information crrently unused</param>
         private void BtnEquals_Click(object sender, RoutedEventArgs e)
         {
-            EqualsTriggered();
+            Button b = sender as Button;
+            string evaluatedText = textManger.EvaluateResult();
+            if (evaluatedText.Length > 0)
+            {
+                HistoryText.Items.Add(evaluatedText);
+            }
         }
-
-
 
         private void HistoryText_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -91,24 +94,7 @@ namespace Calculator
         }
         void Recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
-            string text = e.Result.Text;
-            if (text.Equals("="))
-            {
-                EqualsTriggered();
-            }
-            else
-            {
-                textManger.WriteToTextBox(e.Result.Text);
-            }
-        }
-        //handles equality
-        private void EqualsTriggered()
-        {
-            string evaluatedText = textManger.EvaluateResult();
-            if (evaluatedText.Length > 0)
-            {
-                HistoryText.Items.Add(evaluatedText);
-            }
+            textManger.WriteToTextBox( e.Result.Text);
         }
     }
 }

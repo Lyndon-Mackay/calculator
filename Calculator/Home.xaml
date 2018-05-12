@@ -5,6 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Calculator"
         mc:Ignorable="d"
-        Title="Home" Height="550" Width="900" Source="Calculator.xaml">
+        Title="Home" Height="550" Width="900" Source="MainWindow.xaml">
 
 </NavigationWindow>
