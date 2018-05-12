@@ -106,7 +106,6 @@ namespace Calculator
         /// <returns>The label if found otherwise null</returns>
         private Label TryFindPreviousLabel(string name)
         {
-            Label label = null;
             
             //HAHA I figured out a way to use LINQ!!!!!!!!!
             var childList = LoanInput.Children.OfType<Label>().ToList();
