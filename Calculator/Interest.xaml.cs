@@ -107,6 +107,7 @@ namespace Calculator
         private Label TryFindPreviousLabel(string name)
         {
             Label label = null;
+            // I WANT LINQ!!!! }:(
             foreach (UIElement child in LoanInput.Children)
             {
                 if (child is Label)
