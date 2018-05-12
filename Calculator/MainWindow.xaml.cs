@@ -20,6 +20,9 @@ namespace Calculator
     /// </summary>
     public partial class MainWindow : Window
     {
+        /*When displaying results the next input should overwrite 
+         * This keeps the state
+         */ 
         bool OverWriteDisplay = false;
 
         public MainWindow()
@@ -55,10 +58,12 @@ namespace Calculator
         {
             Button b = sender as Button;
             string evaluatedText = txtDisplay.Text;
-            //have to use fullnamespace as it conflicts with windows :(
+
+            //have to use fullnamespace as it conflicts with another windows expression:(
             org.mariuszgromada.math.mxparser.Expression expression = new org.mariuszgromada.math.mxparser.Expression(evaluatedText);
             double result = expression.calculate();
-            if(Double.IsNaN(result))
+
+            if (Double.IsNaN(result))
             {
                 txtDisplay.Text = "Error";
             }
