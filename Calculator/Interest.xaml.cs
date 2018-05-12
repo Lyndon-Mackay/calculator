@@ -107,21 +107,12 @@ namespace Calculator
         private Label TryFindPreviousLabel(string name)
         {
             Label label = null;
-            // I WANT LINQ!!!! }:(
-            foreach (UIElement child in LoanInput.Children)
-            {
-                if (child is Label)
-                {
-                    Label labelChild = child as Label;
-                    if (labelChild.Name.Equals(name))
-                    {
-                        label = child as Label;
-                        break;
-                    }
-                }
-            }
+            
+            //HAHA I figured out a way to use LINQ!!!!!!!!!
+            var childList = LoanInput.Children.OfType<Label>().ToList();
 
-            return label;
+            return childList.Find(x => x.Name == name);
+      
         }
         /// <summary>
         /// Prevent non-numbers from being entered
