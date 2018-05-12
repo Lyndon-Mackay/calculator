@@ -57,5 +57,8 @@
         <Button x:Name="BtnClearEntry"  Grid.Row="2" Grid.Column="2" Click="BtnClearEntry_Click">CE</Button>
         <Button x:Name="BtnClearAll"  Grid.Row="2" Grid.Column="3" Click="BtnClearAll_Click">C</Button>
         <Button  x:Name="BtnBackSpace"  Grid.Row="2" Grid.Column="4" Click="BtnBackSpace_Click">backspace</Button>
+
+        <Image x:Name= "Australia" Grid.Column="1" Grid.Row="0" Source="Assets/Flag_of_Australia.png" ></Image>
+        <Image x:Name= "NZ" Grid.Column="1" Grid.Row="1" Source="Assets/NZ-flag.png"></Image>
     </Grid>
 </Page>
