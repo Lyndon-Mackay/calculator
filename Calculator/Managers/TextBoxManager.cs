@@ -15,6 +15,11 @@ namespace Calculator.Managers
         {
             _display = textBox;
         }
+        /// <summary>
+        /// writes text to the display 
+        /// handles ases such as overwriting
+        /// </summary>
+        /// <param name="text">the text to add</param>
         public void WriteToTextBox(string text)
         {
             if(_OverWrite)
@@ -26,6 +31,9 @@ namespace Calculator.Managers
             _display.Text += text;
 
         }
+        /// <summary>
+        /// handles backspace command
+        /// </summary>
         public void BackSpaceTextBox()
         {
             string text = _display.Text;
@@ -47,6 +55,10 @@ namespace Calculator.Managers
         {
             _display.Text = "";
         }
+        /// <summary>
+        /// Evaluate the Result and display text
+        /// </summary>
+        /// <returns>The history to display if length is 0 should be discarded</returns>
         public String EvaluateResult()
         {
             string evaluatedText = _display.Text;
