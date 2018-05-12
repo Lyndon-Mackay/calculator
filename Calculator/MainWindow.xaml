@@ -25,7 +25,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <!--Voice-->
-        <Button x:Name="BtnVoice" Grid.Row="0" Grid.Column="0" Click="BtnVoice_Click">VOICE</Button>
+        <Button x:Name="BtnVoice" Grid.Row="0" Grid.Column="0" Click="BtnVoice_Click" Background="#FFFD0000" Foreground="#FFF6F6F6">VOICE</Button>
         <!--TextBox-->
         <Label Grid.Column ="0" Grid.Row="1" VerticalAlignment="Bottom">History</Label>
         <TextBox x:Name="txtDisplay" IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="30"

@@ -17,10 +17,16 @@ namespace Calculator.VoiceFiles
 
         public Voice(EventHandler<SpeechRecognizedEventArgs> result)
         {
-            Choices numbers = new Choices(new string[] { "1", "2", "4", "5", "8", "9" });
+            Choices numbers = new Choices(new string[] { "0","1", "2", "4", "5", "8", "9" });
+            _recognizer.LoadGrammar(CreateGrammer(numbers));
+
+
+            Choices Operators = new Choices(new string[] { "+", "-","*","/" ,"%","=" });
+            _recognizer.LoadGrammar(CreateGrammer(Operators));
+
             //The numbers that on testing where most frequently misheard
             Choices harderNumbers = new Choices(new string[] { "2", "3", "6", "7" });
-            _recognizer.LoadGrammar(CreateGrammer(numbers));
+
 
             Grammar hardGrammer = CreateGrammer(harderNumbers);
             hardGrammer.Priority = 127;//Max
@@ -36,21 +42,20 @@ namespace Calculator.VoiceFiles
             Grammar numberGrammer = new Grammar(numbersgb);
             return numberGrammer;
         }
-        public void Listen()
+
+       public bool ToggleListening()
         {
             if(_listening)
             {
-                return;
+                _listening = false;
+                _recognizer.RecognizeAsyncStop();
             }
-            // Start asynchronous, continuous speech recognition.
-            _recognizer.RecognizeAsync(RecognizeMode.Multiple);
-            _listening = true;
+            else
+            {
+                _recognizer.RecognizeAsync(RecognizeMode.Multiple);
+                _listening = true;
+            }
+            return _listening;
         }
-        public void StopListening()
-        {
-            _listening = false;
-            _recognizer.RecognizeAsyncStop();
-        }
-       
     }
 }

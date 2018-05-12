@@ -88,11 +88,13 @@ namespace Calculator
 
         private void BtnVoice_Click(object sender, RoutedEventArgs e)
         {
-            voice.Listen();
+            Button b = sender as Button;
+            b.Background = voice.ToggleListening()? Brushes.Green :Brushes.Red;
+
         }
         void Recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
-            txtDisplay.Text += e.Result.Text;
+            textManger.WriteToTextBox( e.Result.Text);
         }
     }
 }
