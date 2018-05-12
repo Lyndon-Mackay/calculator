@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Speech.Recognition;
 using Calculator.VoiceFiles;
+using Calculator.Managers;
 namespace Calculator
 {
     /// <summary>
@@ -24,13 +25,14 @@ namespace Calculator
         /*When displaying results the next input should overwrite 
          * This keeps the state
          */ 
-        bool OverWriteDisplay = false;
-        Voice voice; 
+        Voice voice;
+        TextBoxManager textManger;
 
         public MainWindow()
         {
             InitializeComponent();
             voice = new Voice(new EventHandler<SpeechRecognizedEventArgs>(Recognizer_SpeechRecognized));
+            textManger = new TextBoxManager(txtDisplay);
         }
         /// <summary>
         /// Handles the simple case where the buttons are
@@ -41,16 +43,7 @@ namespace Calculator
         private void BtnNumberAndOperationClick(object sender, RoutedEventArgs e)
         {
             Button b = sender as Button;
-            if (OverWriteDisplay)
-            {
-                txtDisplay.Text = b.Content.ToString();
-                OverWriteDisplay = false;
-            }
-            else
-            {
-                txtDisplay.Text += b.Content.ToString();
-                
-            }
+            textManger.WriteToTextBox(b.Content.ToString());
         }
         /// <summary>
         /// Handles the event when the equals buton is pressed
@@ -85,15 +78,15 @@ namespace Calculator
             ListBox historyBox = sender as ListBox;
             if(historyBox.SelectedItem != null)
             {
-                txtDisplay.Text = historyBox.SelectedItem.ToString();
-                OverWriteDisplay = false;
+                textManger.WriteToTextBox(historyBox.SelectedItem.ToString());
+
             }
         }
 
         private void BtnBackSpace_Click(object sender, RoutedEventArgs e)
         {
             //subtract the last character
-            txtDisplay.Text = txtDisplay.Text.Substring(0, txtDisplay.Text.Length - 1);
+            textManger.BackSpaceTextBox();
         }
 
         private void BtnClearAll_Click(object sender, RoutedEventArgs e)
@@ -103,8 +96,7 @@ namespace Calculator
 
         private void BtnClearEntry_Click(object sender, RoutedEventArgs e)
         {
-            OverWriteDisplay = false;
-            txtDisplay.Clear();
+            textManger.ClearText();
         }
 
         private void BtnVoice_Click(object sender, RoutedEventArgs e)
