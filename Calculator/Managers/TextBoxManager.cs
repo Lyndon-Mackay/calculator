@@ -76,7 +76,7 @@ namespace Calculator.Managers
             else
             {
                 _display.Text = result.ToString();
-                return result.ToString(); ;
+                return evaluatedText;
 
             }
             return "";
