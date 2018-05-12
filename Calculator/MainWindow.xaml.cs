@@ -12,7 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using org.mariuszgromada.math.mxparser;
+using System.Speech.Recognition;
+using Calculator.VoiceFiles;
 namespace Calculator
 {
     /// <summary>
@@ -24,10 +25,12 @@ namespace Calculator
          * This keeps the state
          */ 
         bool OverWriteDisplay = false;
+        Voice voice; 
 
         public MainWindow()
         {
             InitializeComponent();
+            voice = new Voice(new EventHandler<SpeechRecognizedEventArgs>(Recognizer_SpeechRecognized));
         }
         /// <summary>
         /// Handles the simple case where the buttons are
@@ -59,9 +62,11 @@ namespace Calculator
             Button b = sender as Button;
             string evaluatedText = txtDisplay.Text;
 
-            //have to use fullnamespace as it conflicts with another windows expression:(
+            //have to use fullnamespace as it conflicts with another windows defined expression:(
             org.mariuszgromada.math.mxparser.Expression expression = new org.mariuszgromada.math.mxparser.Expression(evaluatedText);
             double result = expression.calculate();
+
+            OverWriteDisplay = true;
 
             if (Double.IsNaN(result))
             {
@@ -71,7 +76,7 @@ namespace Calculator
             {
                 txtDisplay.Text = result.ToString();
                 HistoryText.Items.Add(evaluatedText);
-                OverWriteDisplay = true;
+                
             }
         }
 
@@ -100,6 +105,15 @@ namespace Calculator
         {
             OverWriteDisplay = false;
             txtDisplay.Clear();
+        }
+
+        private void BtnVoice_Click(object sender, RoutedEventArgs e)
+        {
+            voice.Listen();
+        }
+        void Recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
+        {
+            txtDisplay.Text += e.Result.Text;
         }
     }
 }
