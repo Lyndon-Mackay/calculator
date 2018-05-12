@@ -13,9 +13,11 @@ namespace Calculator.VoiceFiles
         SpeechRecognitionEngine _recognizer =
       new SpeechRecognitionEngine(
         new System.Globalization.CultureInfo("en-NZ"));
+
         bool _listening = false;
-        //maximum number voice recognition would accept
+        ///maximum number voice recognition will accept///
         const int MAX_NUMBER = 1000;
+
         public Voice(EventHandler<SpeechRecognizedEventArgs> result)
         {
             //make a count of all numbers between 0 and MAX_NUMBER
