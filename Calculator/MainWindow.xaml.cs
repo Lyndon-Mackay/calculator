@@ -15,6 +15,9 @@ using System.Windows.Shapes;
 using System.Speech.Recognition;
 using Calculator.VoiceFiles;
 using Calculator.Managers;
+using Calculator.Network;
+using System.Net.Sockets;
+
 namespace Calculator
 {
     /// <summary>
@@ -27,7 +30,8 @@ namespace Calculator
          */ 
         Voice voice;
         TextBoxManager textManger;
-
+        AsynchronousClient client;
+        AsynchronousSocketListener server;
         public MainWindow()
         {
             InitializeComponent();
@@ -101,6 +105,29 @@ namespace Calculator
         {
             Interest interest = new Interest();
             this.NavigationService.Navigate(interest);
+        }
+
+        private void BtnSync_Click(object sender, RoutedEventArgs e)
+        {
+            if (int.TryParse(ServerChannel.Text, out int serverPort))
+            {
+
+                server = new AsynchronousSocketListener(serverPort);
+                server.StartSocket();
+            }
+            try
+            {
+                if (int.TryParse(ClientChannel.Text, out int clientPort))
+                {
+                    client = new AsynchronousClient(clientPort);
+                    client.Start();
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error make sure someone is listening on your send channel");
+            }
+
         }
     }
 }

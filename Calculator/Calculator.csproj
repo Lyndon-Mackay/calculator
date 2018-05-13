@@ -65,6 +65,9 @@
       <DependentUpon>Interest.xaml</DependentUpon>
     </Compile>
     <Compile Include="Managers\TextBoxManager.cs" />
+    <Compile Include="Network\AsynchronousClient.cs" />
+    <Compile Include="Network\AsynchronousSocketListener.cs" />
+    <Compile Include="Network\StateObject.cs" />
     <Compile Include="VoiceFiles\Voice.cs" />
     <Page Include="Home.xaml">
       <SubType>Designer</SubType>

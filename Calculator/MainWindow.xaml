@@ -23,6 +23,7 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <!--Voice-->
         <Button x:Name="BtnVoice" Grid.Row="0" Grid.Column="0" Click="BtnVoice_Click" Background="#FFFD0000" Foreground="#FFF6F6F6">VOICE</Button>
@@ -60,5 +61,10 @@
         
         <!--InterestButton-->
         <Button x:Name="BtnInterest" Grid.Row="0" Grid.Column="1" Click="BtnInterest_Click">Interest Calculator</Button>
+        <Button x:Name ="BtnSync" Grid.Column="0"  Grid.ColumnSpan="1" Content="Button"  Grid.Row="7" Click="BtnSync_Click" />
+        <TextBox x:Name="ClientChannel"  FontSize="30"
+                 Grid.Row="9" Grid.Column="2"  ></TextBox>
+        <TextBox x:Name="ServerChannel"  FontSize="30"
+                 Grid.Row="9" Grid.Column="4"  ></TextBox>
     </Grid>
 </Page>
