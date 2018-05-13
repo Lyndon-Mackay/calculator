@@ -59,28 +59,32 @@ namespace Calculator.Network
                 Console.WriteLine(e.ToString());
             }
 
-            // Console.WriteLine("\nPress ENTER to continue...");
-            //Console.Read();
 
         }
 
         public static void AcceptCallback(IAsyncResult ar)
         {
-
-            // Signal the main thread to continue.  
-            allDone.Set();
-
-            // Get the socket that handles the client request.  
-            Socket listener = (Socket)ar.AsyncState;
-            Socket handler = listener.EndAccept(ar);
-
-            // Create the state object.  
-            StateObject state = new StateObject
+            try
             {
-                workSocket = handler
-            };
-            handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
-                new AsyncCallback(ReadCallback), state);
+                // Signal the main thread to continue.  
+                allDone.Set();
+
+                // Get the socket that handles the client request.  
+                Socket listener = (Socket)ar.AsyncState;
+                Socket handler = listener.EndAccept(ar);
+
+                // Create the state object.  
+                StateObject state = new StateObject
+                {
+                    workSocket = handler
+                };
+                handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
+                    new AsyncCallback(ReadCallback), state);
+            }
+            catch(ObjectDisposedException)
+            {
+                return;
+            }
         }
 
         public static void ReadCallback(IAsyncResult ar)
@@ -112,7 +116,7 @@ namespace Calculator.Network
                         content.Length, content);
 
                     string myContent = content.Replace("<EOF>", "");
-                    List<string> list = myContent.Split(new[] { Environment.NewLine }, StringSplitOptions.None).ToList();
+                    List<string> list = myContent.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).ToList();
                     _dataHandler.Invoke(list);
 
                     // Echo the data back to the client.  

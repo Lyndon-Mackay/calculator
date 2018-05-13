@@ -18,6 +18,7 @@ using Calculator.Managers;
 using Calculator.Network;
 using System.Net.Sockets;
 using System.Windows.Threading;
+using System.Text.RegularExpressions;
 
 namespace Calculator
 {
@@ -114,9 +115,9 @@ namespace Calculator
 
         private void BtnSync_Click(object sender, RoutedEventArgs e)
         {
-            if (ServerChannel.Text.Length == 0 && ClientChannel.Text.Length == 0)
+            if (ServerChannel.Text.Length > 0 && ClientChannel.Text.Length > 0)
             {
-                MessageBox.Show("Note only one of The Client or server should be filled in ");
+                MessageBox.Show("Note: only one of The Client or server should be filled in ");
                 return;
                 }
             if (int.TryParse(ServerChannel.Text, out int serverPort))
@@ -129,7 +130,7 @@ namespace Calculator
                 server.StartSocket();
             }
 
-            if (int.TryParse(ClientChannel.Text, out int clientPort))
+            else if (int.TryParse(ClientChannel.Text, out int clientPort))
             {
 
                 client = new AsynchronousClient(clientPort);
@@ -140,23 +141,25 @@ namespace Calculator
 
         }
         /// <summary>
-        /// 
+        /// Handles recieved merged data.
+        /// Made a decision to overwrite rather then merge
         /// </summary>
-        /// <param name="data"></param>
+        /// <param name="data">The data to add</param>
         private void SyncedData(List<string> data)
         {
-            Console.WriteLine("hello");
-            //allow g
+            //allow thread to overwride
             this.Dispatcher.Invoke(() =>
             {
-                Console.WriteLine("lol");
+
                 HistoryText.Items.Clear();
+                //add all items the tolist is just to force execution
                 data.Select(x => HistoryText.Items.Add(x)).ToList();
-                //MessageBox.Show(x);
             }, DispatcherPriority.Background);
 
         }
-
+        /// <summary>
+        /// Handles evaluation and outputting to history
+        /// </summary>
         private void Evaluate()
         {
             string evaluatedText = textManger.EvaluateResult();
@@ -165,5 +168,12 @@ namespace Calculator
                 HistoryText.Items.Add(evaluatedText);
             }
         }
+
+        private void Channel_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
     }
 }

@@ -23,13 +23,15 @@ namespace Calculator.Managers
         /// <param name="text">the text to add</param>
         public void WriteToTextBox(string text)
         {
+            //dont input =
+            string newtext = text.Split('=')[0].Trim();
             if(_OverWrite)
             {
-                _display.Text = text;
+                _display.Text = newtext;
                 _OverWrite = false;
                 return;
             }
-            _display.Text += text;
+            _display.Text += newtext;
 
         }
         /// <summary>
@@ -52,6 +54,9 @@ namespace Calculator.Managers
             }
             _display.Text = text.Substring(0, text.Length - 1);
         }
+        /// <summary>
+        /// clears the display next value written will override this
+        /// </summary>
         public void ClearText()
         {
             _display.Text = "0";
@@ -78,7 +83,7 @@ namespace Calculator.Managers
             else
             {
                 _display.Text = result.ToString();
-                return evaluatedText;
+                return evaluatedText +"="+ result.ToString();
 
             }
             return "";

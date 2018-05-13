@@ -54,7 +54,6 @@ namespace Calculator.Network
 
                 // Receive the response from the remote device.  
                 Receive(client);
-                receiveDone.WaitOne();
 
                 // Write the response to the console.  
                 Console.WriteLine("Response received : {0}", response);

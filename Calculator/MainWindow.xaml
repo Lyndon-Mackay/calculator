@@ -53,18 +53,21 @@
         <Button x:Name="BtnMinus"  Grid.Row="5" Grid.Column="5" Click="BtnNumberAndOperationClick">-</Button>
         <Button x:Name="BtnEquals"   Grid.Row="6" Grid.Column="5" Click="BtnEquals_Click">=</Button>
         <Button x:Name="BtnDecPoint" Grid.Row="6" Grid.Column="2" Click="BtnNumberAndOperationClick" >.</Button>
-        <Button  x:Name="BtnPercent"  Grid.Row="2" Grid.Column="6" Click="BtnNumberAndOperationClick">%</Button>
+        <Button  x:Name="BtnPlus"  Grid.Row="2" Grid.Column="6" Click="BtnNumberAndOperationClick">+</Button>
+        <Button  x:Name="BtnPercent"  Grid.Row="7" Grid.Column="5" Click="BtnNumberAndOperationClick">%</Button>
         <!--Clear buttons-->
         <Button x:Name="BtnClearEntry"  Grid.Row="2" Grid.Column="2" Click="BtnClearEntry_Click">CE</Button>
         <Button x:Name="BtnClearAll"  Grid.Row="2" Grid.Column="3" Click="BtnClearAll_Click">C</Button>
         <Button  x:Name="BtnBackSpace"  Grid.Row="2" Grid.Column="4" Click="BtnBackSpace_Click">backspace</Button>
-        
+
         <!--InterestButton-->
-        <Button x:Name="BtnInterest" Grid.Row="0" Grid.Column="1" Click="BtnInterest_Click">Interest Calculator</Button>
-        <Button x:Name ="BtnSync" Grid.Column="0"  Grid.ColumnSpan="1" Content="Button"  Grid.Row="7" Click="BtnSync_Click" />
+        <Button x:Name="BtnInterest" Grid.Row="0" Grid.Column="1" Click="BtnInterest_Click" Margin="27,18,21,17.667">Interest Calculator</Button>
+        <Button x:Name ="BtnSync" Grid.Column="0"  Grid.ColumnSpan="1" Grid.Row="7" Click="BtnSync_Click" >Sync</Button>
         <TextBox x:Name="ClientChannel"  FontSize="30"
-                 Grid.Row="9" Grid.Column="2"  ></TextBox>
+                 Grid.Row="9" Grid.Column="2" BorderThickness="2" PreviewTextInput="Channel_PreviewTextInput" />
         <TextBox x:Name="ServerChannel"  FontSize="30"
-                 Grid.Row="9" Grid.Column="4"  ></TextBox>
+                 Grid.Row="9" Grid.Column="4"  BorderThickness="2" PreviewTextInput="Channel_PreviewTextInput"/>
+        <TextBox x:Name="ClientChannelLabel" Grid.Column ="1" Grid.Row="8" FontSize="20" VerticalAlignment="Center" Text="Send to ID "  />
+        <TextBox x:Name="ServerChannelLabel" Grid.Column ="3" Grid.Row="8" FontSize="20" VerticalAlignment="Center"  Text="Read from ID"  />
     </Grid>
 </Page>
