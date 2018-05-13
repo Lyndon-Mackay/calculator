@@ -119,8 +119,6 @@ namespace Calculator.Network
                     List<string> list = myContent.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).ToList();
                     _dataHandler.Invoke(list);
 
-                    // Echo the data back to the client.  
-                    Send(handler, content);
                 }
                 else
                 {
