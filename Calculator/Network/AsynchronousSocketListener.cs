@@ -13,11 +13,13 @@ namespace Calculator.Network
     {
         // Thread signal.  
         public static ManualResetEvent allDone = new ManualResetEvent(false);
-
+        private static Action<List<string>> _dataHandler;
+        Socket listener;
         int _port = 0;
-        public AsynchronousSocketListener(int port)
+        public AsynchronousSocketListener(int port, Action<List<string>> dataHandler)
         {
             _port = port;
+            _dataHandler = dataHandler;
         }
 
         public void StartListening()
@@ -25,29 +27,30 @@ namespace Calculator.Network
             // Data buffer for incoming data.  
             byte[] bytes = new Byte[1024];
 
-  
+
             IPHostEntry ipHostInfo = Dns.GetHostEntry("localhost");
             IPAddress ipAddress = ipHostInfo.AddressList[0];
             IPEndPoint localEndPoint = new IPEndPoint(ipAddress, _port);
 
             // Create a TCP/IP socket.  
-            Socket listener = new Socket(ipAddress.AddressFamily,
+            listener = new Socket(ipAddress.AddressFamily,
                 SocketType.Stream, ProtocolType.Tcp);
-
+            listener.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
             // Bind the socket to the local endpoint and listen for incoming connections.  
             try
             {
                 listener.Bind(localEndPoint);
+                
                 listener.Listen(100);
 
-                    // Set the event to nonsignaled state.  
-                    allDone.Reset();
+                // Set the event to nonsignaled state.  
+                allDone.Reset();
 
-                    // Start an asynchronous socket to listen for connections.  
-                    Console.WriteLine("Waiting for a connection...");
-                    listener.BeginAccept(
-                        new AsyncCallback(AcceptCallback),
-                        listener);
+                // Start an asynchronous socket to listen for connections.  
+                Console.WriteLine("Waiting for a connection...");
+                listener.BeginAccept(
+                    new AsyncCallback(AcceptCallback),
+                    listener);
 
 
             }
@@ -56,13 +59,14 @@ namespace Calculator.Network
                 Console.WriteLine(e.ToString());
             }
 
-           // Console.WriteLine("\nPress ENTER to continue...");
+            // Console.WriteLine("\nPress ENTER to continue...");
             //Console.Read();
 
         }
 
         public static void AcceptCallback(IAsyncResult ar)
         {
+
             // Signal the main thread to continue.  
             allDone.Set();
 
@@ -106,6 +110,11 @@ namespace Calculator.Network
                     // client. Display it on the console.  
                     Console.WriteLine("Read {0} bytes from socket. \n Data : {1}",
                         content.Length, content);
+
+                    string myContent = content.Replace("<EOF>", "");
+                    List<string> list = myContent.Split(new[] { Environment.NewLine }, StringSplitOptions.None).ToList();
+                    _dataHandler.Invoke(list);
+
                     // Echo the data back to the client.  
                     Send(handler, content);
                 }
@@ -140,6 +149,8 @@ namespace Calculator.Network
                 Console.WriteLine("Sent {0} bytes to client.", bytesSent);
 
                 handler.Shutdown(SocketShutdown.Both);
+                handler.Disconnect(true);
+
                 handler.Close();
 
             }
@@ -151,6 +162,12 @@ namespace Calculator.Network
         public void StartSocket()
         {
             StartListening();
+        }
+        public void EndSocket()
+        {
+            //listener.Disconnect(true);
+           // listener.Shutdown(SocketShutdown.Both);
+            listener.Close();
         }
     }
 }

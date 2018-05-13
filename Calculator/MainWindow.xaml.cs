@@ -17,6 +17,7 @@ using Calculator.VoiceFiles;
 using Calculator.Managers;
 using Calculator.Network;
 using System.Net.Sockets;
+using System.Windows.Threading;
 
 namespace Calculator
 {
@@ -27,7 +28,7 @@ namespace Calculator
     {
         /*When displaying results the next input should overwrite 
          * This keeps the state
-         */ 
+         */
         Voice voice;
         TextBoxManager textManger;
         AsynchronousClient client;
@@ -67,7 +68,7 @@ namespace Calculator
         private void HistoryText_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             ListBox historyBox = sender as ListBox;
-            if(historyBox.SelectedItem != null)
+            if (historyBox.SelectedItem != null)
             {
                 textManger.WriteToTextBox(historyBox.SelectedItem.ToString());
 
@@ -93,12 +94,12 @@ namespace Calculator
         private void BtnVoice_Click(object sender, RoutedEventArgs e)
         {
             Button b = sender as Button;
-            b.Background = voice.ToggleListening()? Brushes.Green :Brushes.Red;
+            b.Background = voice.ToggleListening() ? Brushes.Green : Brushes.Red;
 
         }
         void Recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
-            textManger.WriteToTextBox( e.Result.Text);
+            textManger.WriteToTextBox(e.Result.Text);
         }
 
         private void BtnInterest_Click(object sender, RoutedEventArgs e)
@@ -111,22 +112,38 @@ namespace Calculator
         {
             if (int.TryParse(ServerChannel.Text, out int serverPort))
             {
-
-                server = new AsynchronousSocketListener(serverPort);
+                if(server != null)
+                {
+                    server.EndSocket();
+                }
+                server = new AsynchronousSocketListener(serverPort,SyncedData);
                 server.StartSocket();
             }
-            try
+
+            if (int.TryParse(ClientChannel.Text, out int clientPort))
             {
-                if (int.TryParse(ClientChannel.Text, out int clientPort))
-                {
-                    client = new AsynchronousClient(clientPort);
-                    client.Start();
-                }
+                client = new AsynchronousClient(clientPort);
+                //of type object so I can use LINQ, Then aggregate combines the items into a string with a newline seperating them
+                var data = HistoryText.Items.OfType<object>().Aggregate("", (acc, x) => acc += x.ToString() +Environment.NewLine);
+                client.Start(data);
             }
-            catch (Exception)
+
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        private void SyncedData(List<string> data)
+        {
+            Console.WriteLine("hello");
+            //allow g
+            this.Dispatcher.Invoke(() =>
             {
-                MessageBox.Show("Error make sure someone is listening on your send channel");
-            }
+                Console.WriteLine("lol");
+                HistoryText.Items.Clear();
+                data.Select(x => HistoryText.Items.Add(x)).ToList();
+                //MessageBox.Show(x);
+            }, DispatcherPriority.Background);
 
         }
     }

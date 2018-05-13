@@ -13,7 +13,6 @@ namespace Calculator.Network
     {
         // The port number for the remote device.  
         private  int _port;
-
         // ManualResetEvent instances signal completion.  
         private static ManualResetEvent connectDone =
             new ManualResetEvent(false);
@@ -29,7 +28,7 @@ namespace Calculator.Network
         {
             _port = port;
         }
-        private void StartClient()
+        private void StartClient(string data)
         {
             // Connect to a remote device.  
             try
@@ -49,7 +48,7 @@ namespace Calculator.Network
                 connectDone.WaitOne();
 
                 // Send test data to the remote device.  
-                Send(client, "This is a test<EOF>");
+                Send(client, data);
                 sendDone.WaitOne();
 
                 // Receive the response from the remote device.  
@@ -98,8 +97,10 @@ namespace Calculator.Network
             try
             {
                 // Create the state object.  
-                StateObject state = new StateObject();
-                state.workSocket = client;
+                StateObject state = new StateObject
+                {
+                    workSocket = client
+                };
 
                 // Begin receiving the data from the remote device.  
                 client.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
@@ -149,6 +150,8 @@ namespace Calculator.Network
             }
         }
 
+
+
         private void Send(Socket client, String data)
         {
             // Convert the string data to byte data using ASCII encoding.  
@@ -178,9 +181,10 @@ namespace Calculator.Network
                 Console.WriteLine(e.ToString());
             }
         }
-        public void Start()
+
+        public void Start(string data)
         {
-            StartClient();
+            StartClient(data + "<EOF>");
         }
     }
 }
