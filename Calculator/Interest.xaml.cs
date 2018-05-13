@@ -82,20 +82,20 @@ namespace Calculator
         /// <param name="TextContent">The text the new label should display</param>
         private void SetDynamicLabel(string labelName,string TextContent)
         {
-            Label repaymentRate = null;
+            TextBlock repaymentRate = null;
             repaymentRate = TryFindPreviousLabel(labelName);
             if(repaymentRate == null)
             {
-                repaymentRate = new Label
+                repaymentRate = new TextBlock
                 {
                     Name = labelName,
-                    Content = TextContent
+                    Text = TextContent
                 };
                 LoanInput.Children.Add(repaymentRate);
             }
             else
             {
-                repaymentRate.Content = TextContent;
+                repaymentRate.Text = TextContent;
             }
 
         }
@@ -104,11 +104,11 @@ namespace Calculator
         /// </summary>
         /// <param name="name">the name of the label to find</param>
         /// <returns>The label if found otherwise null</returns>
-        private Label TryFindPreviousLabel(string name)
+        private TextBlock TryFindPreviousLabel(string name)
         {
             
             //HAHA I figured out a way to use LINQ!!!!!!!!!
-            var childList = LoanInput.Children.OfType<Label>().ToList();
+            var childList = LoanInput.Children.OfType<TextBlock>().ToList();
 
             return childList.Find(x => x.Name == name);
       
