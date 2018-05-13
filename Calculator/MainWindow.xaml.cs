@@ -53,12 +53,9 @@ namespace Calculator
         private void BtnEquals_Click(object sender, RoutedEventArgs e)
         {
             Button b = sender as Button;
-            string evaluatedText = textManger.EvaluateResult();
-            if (evaluatedText.Length > 0)
-            {
-                HistoryText.Items.Add(evaluatedText);
-            }
+            Evaluate();
         }
+
 
         private void HistoryText_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -94,13 +91,29 @@ namespace Calculator
         }
         void Recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
-            textManger.WriteToTextBox( e.Result.Text);
+            if (!e.Result.Text.Equals("="))
+            {
+                textManger.WriteToTextBox(e.Result.Text);
+            }
+            else
+            {
+                Evaluate();
+            }
         }
 
         private void BtnInterest_Click(object sender, RoutedEventArgs e)
         {
             Interest interest = new Interest();
             this.NavigationService.Navigate(interest);
+        }
+
+        private void Evaluate()
+        {
+            string evaluatedText = textManger.EvaluateResult();
+            if (evaluatedText.Length > 0)
+            {
+                HistoryText.Items.Add(evaluatedText);
+            }
         }
     }
 }
