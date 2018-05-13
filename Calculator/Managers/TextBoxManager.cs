@@ -9,6 +9,7 @@ namespace Calculator.Managers
 
     class TextBoxManager
     {
+        //keeps state wether the next input should overwrite current input
         private bool _OverWrite;
         private TextBox _display;
         public TextBoxManager(TextBox textBox)
@@ -53,7 +54,8 @@ namespace Calculator.Managers
         }
         public void ClearText()
         {
-            _display.Text = "";
+            _display.Text = "0";
+            _OverWrite = true;
         }
         /// <summary>
         /// Evaluate the Result and display text
