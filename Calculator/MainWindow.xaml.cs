@@ -110,6 +110,11 @@ namespace Calculator
 
         private void BtnSync_Click(object sender, RoutedEventArgs e)
         {
+            if (ServerChannel.Text.Length > 0 && ServerChannel.Text.Length > 0)
+            {
+                MessageBox.Show("Note only one of The Client or server should be filled in ");
+                return;
+                }
             if (int.TryParse(ServerChannel.Text, out int serverPort))
             {
                 if(server != null)
@@ -122,6 +127,7 @@ namespace Calculator
 
             if (int.TryParse(ClientChannel.Text, out int clientPort))
             {
+
                 client = new AsynchronousClient(clientPort);
                 //of type object so I can use LINQ, Then aggregate combines the items into a string with a newline seperating them
                 var data = HistoryText.Items.OfType<object>().Aggregate("", (acc, x) => acc += x.ToString() +Environment.NewLine);
