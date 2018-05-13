@@ -175,5 +175,10 @@ namespace Calculator
             e.Handled = regex.IsMatch(e.Text);
         }
 
+        private void VonNeuman_Click(object sender, RoutedEventArgs e)
+        {
+            var newWindow = new Home();
+            newWindow.Show();
+        }
     }
 }

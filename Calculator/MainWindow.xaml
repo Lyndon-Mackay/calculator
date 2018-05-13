@@ -69,5 +69,6 @@
                  Grid.Row="9" Grid.Column="4"  BorderThickness="2" PreviewTextInput="Channel_PreviewTextInput"/>
         <TextBox x:Name="ClientChannelLabel" Grid.Column ="1" Grid.Row="8" FontSize="20" VerticalAlignment="Center" Text="Send to ID "  />
         <TextBox x:Name="ServerChannelLabel" Grid.Column ="3" Grid.Row="8" FontSize="20" VerticalAlignment="Center"  Text="Read from ID"  />
+        <Button x:Name="VonNeuman" Content="New Calculator" Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="27,18.333,0,0" Grid.Row="1" VerticalAlignment="Top" Width="102" Click="VonNeuman_Click"/>
     </Grid>
 </Page>
