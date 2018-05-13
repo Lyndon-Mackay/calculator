@@ -31,7 +31,7 @@
         <Label Grid.Column ="0" Grid.Row="1" VerticalAlignment="Bottom">History</Label>
         <TextBox x:Name="txtDisplay" IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="30"
                  Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="4" BorderThickness="0"></TextBox>
-        <ListBox x:Name="HistoryText" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="5" MouseDoubleClick="HistoryText_MouseDoubleClick" ></ListBox>
+        <ListBox x:Name="HistoryText" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="5" MouseDoubleClick="HistoryText_MouseDoubleClick"  ></ListBox>
         <!--Buttons-->
         <Button x:Name="Btn7" Grid.Row="3" Grid.Column="2" Click="BtnNumberAndOperationClick">7</Button>
         <Button x:Name="Btn8"  Grid.Row="3" Grid.Column="3" Click="BtnNumberAndOperationClick">8</Button>

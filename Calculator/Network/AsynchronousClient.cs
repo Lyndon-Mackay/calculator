@@ -11,8 +11,9 @@ namespace Calculator.Network
 {
     class AsynchronousClient
     {
+
         // The port number for the remote device.  
-        private  int _port;
+        private int _port;
         // ManualResetEvent instances signal completion.  
         private static ManualResetEvent connectDone =
             new ManualResetEvent(false);

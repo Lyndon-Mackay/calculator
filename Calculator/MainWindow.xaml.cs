@@ -110,7 +110,7 @@ namespace Calculator
 
         private void BtnSync_Click(object sender, RoutedEventArgs e)
         {
-            if (ServerChannel.Text.Length > 0 && ServerChannel.Text.Length > 0)
+            if (ServerChannel.Text.Length == 0 && ClientChannel.Text.Length == 0)
             {
                 MessageBox.Show("Note only one of The Client or server should be filled in ");
                 return;
