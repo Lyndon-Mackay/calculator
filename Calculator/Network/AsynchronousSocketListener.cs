@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 
 namespace Calculator.Network
 {
+    //based off 
+    //https://docs.microsoft.com/en-us/dotnet/framework/network-programming/asynchronous-server-socket-example
     class AsynchronousSocketListener
     {
         // Thread signal.  
